@@ -1,3 +1,19 @@
+"""
+CAMBIOS:
+
+1- listar_egresados viola el principio de responsabilidad unica
+por lo que se opta por dividir tareas en 2 metodos
+
+2- Separar la logica de el print de resultados, para hacerlo fuera de la clase
+
+3- Se utiliza decimal en vez de float por precision
+
+4- Se manejan los casos en donde un alumno no tiene examenes
+
+5- Se pasa a los alumnos como constructor
+"""
+
+
 from typing import List
 from datetime import datetime
 from decimal import Decimal
