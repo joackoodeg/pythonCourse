@@ -13,7 +13,6 @@ por lo que se opta por dividir tareas en 2 metodos
 5- Se pasa a los alumnos como constructor
 """
 
-
 from typing import List
 from datetime import datetime
 from decimal import Decimal
@@ -32,7 +31,7 @@ class Carrera:
         promedios = {}
         for alumno in self.c_alumnos:
             if alumno.fecha_egreso is not None:
-                notas_aprobadas=[examen.nota for examen in alumno.examenes if examen.nota>=6]
+                notas_aprobadas=alumno.obtenerNotasAprobadas()
                 if notas_aprobadas:
                     promedio=sum(notas_aprobadas)/len(notas_aprobadas)
                     promedios[alumno.nombre]= Decimal(promedio).quantize(Decimal('0.00'))
@@ -47,6 +46,9 @@ class Alumno:
         self.nombre = nombre
         self.fecha_egreso = fecha_egreso
         self.examenes = examenes
+
+    def obtenerNotasAprobadas(self):
+        return [examen.nota for examen in self.examenes if examen.nota>=6]
 # Ejemplo de uso
 
 if __name__ == "__main__":
