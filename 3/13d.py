@@ -80,7 +80,7 @@ class Reparacion:
             total+=dispositivo.contar_piezas_reparacion()
         return total
 
-class Dispositivo:
+class Dispositivo(ABC):
     def __init__(self, marca: str, modelo: str, pantalla: bool):
         self.marca = marca
         self.modelo = modelo
