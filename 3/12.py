@@ -92,8 +92,6 @@ class Banco:
             print(cuenta.consultarNro(), " ", self.generarComision(cuenta, fechaInicio, fechaFin))
 
 
-
-
 if __name__ == '__main__':
     tasa_de_cambio = {"peso_a_dolar": 0.015, "dolar_a_real": 5.4, "peso_a_real": 0.003}
 
