@@ -14,7 +14,7 @@ class Pais:
     def es_argentina(self):
         return self.nombre.lower() == 'argentina'
 
-class Vehiculo:
+class Vehiculo(ABC):
     def __init__(self, marca, modelo, patente, precioVenta, kilometraje, duenio=None):
         self.marca=marca
         self.modelo=modelo
@@ -28,6 +28,12 @@ class Vehiculo:
 
     def getDuenio(self):
         return self.duenio
+    
+    def es_usado(self):
+        if self.duenio==None:
+            return False
+        else:
+            return True
 
     @abstractmethod
     def es_nacional(self):
@@ -74,7 +80,7 @@ class DetalleVenta:
         return self.vehiculo
     
     def es_usado(self):
-        return self.vehiculo.getDuenio() == None
+        return self.vehiculo.es_usado()
     
     def es_nacional(self):
         return self.vehiculo.es_nacional()
@@ -121,7 +127,7 @@ if __name__ == "__main__":
     juan = Cliente('Juan', 'Perez', 35839854)
     venta_juan = Venta('20240329', juan)
 
-    corsa98 = Auto('Chevrolet', 'Corsa', 'JKK849', 3000000, 500000, argentina)
+    corsa98 = Auto('Chevrolet', 'Corsa', 'JKK849', 3000000, 500000, argentina, pedro)
 
     detalle0_venta_corsa = DetalleVenta(venta_juan, corsa98)
 

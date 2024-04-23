@@ -33,7 +33,7 @@ class Transaccion:
             raise ValueError("Moneda no válida")
 
 class Titular:
-    def __init__(self,apellido,nombre,cuil) -> None:
+    def __init__(self,apellido,nombre,cuil):
         self.apellido=apellido
         self.nombre=nombre
         self.cuil=cuil
@@ -72,7 +72,7 @@ class Cuenta:
         self._saldo+=transaccion.convertir_a_moneda('dolar',tasa_de_cambio) #se deberia ingresar un numero negativo
     
 class Banco:
-    def __init__(self,nombre, cuentas: List['Cuenta']) -> None:
+    def __init__(self,nombre, cuentas: List['Cuenta']):
         self.nombre=nombre
         self.cuentas=cuentas
 
@@ -88,9 +88,14 @@ class Banco:
         return (30-((b/a)*0.005))
 
     def listarComisiones(self, fechaInicio, fechaFin):
+        resultado = []
         for cuenta in self.cuentas:
-            print(cuenta.consultarNro(), " ", self.generarComision(cuenta, fechaInicio, fechaFin))
-
+            comision_data = {
+                'nro': cuenta.consultarNro(),
+                'comision': self.generarComision(cuenta, fechaInicio, fechaFin)
+            }
+        resultado.append(comision_data)  # Añadimos a la lista
+        return resultado
 
 if __name__ == '__main__':
     tasa_de_cambio = {"peso_a_dolar": 0.015, "dolar_a_real": 5.4, "peso_a_real": 0.003}
@@ -114,4 +119,6 @@ if __name__ == '__main__':
     # Listar comisiones entre dos fechas
     fecha_inicio = datetime.strptime("2024-04-17", "%Y-%m-%d")
     fecha_fin = datetime.strptime("2024-04-18", "%Y-%m-%d")
-    banco.listarComisiones(fecha_inicio, fecha_fin)
+    comis = banco.listarComisiones(fecha_inicio, fecha_fin)
+    for c in comis:
+        print(f"Número de cuenta: {c['nro']}, Comisión: {c['comision']}")
